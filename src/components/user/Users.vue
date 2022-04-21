@@ -1,30 +1,18 @@
 <template>
   <div class="wrapper">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }"
-        ><span @click="so">首页</span></el-breadcrumb-item
-      >
+      <el-breadcrumb-item :to="{ path: '/home' }"><span @click="so">首页</span></el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card">
       <div>
         <div style="width: 300px; position: relative">
-          <el-input
-            placeholder="请输入内容"
-            v-model="input3"
-            class="input-with-select"
-          >
-            <el-button
-              slot="append"
-              icon="el-icon-search"
-              @click="sa(1, 3)"
-            ></el-button>
+          <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
+            <el-button slot="append" icon="el-icon-search" @click="sa(1, 3)"></el-button>
           </el-input>
           <div class="sl">
-            <el-button type="primary" size="medium" @click="tjyh"
-              >添加用户</el-button
-            >
+            <el-button type="primary" size="medium" @click="tjyh" >添加用户</el-button>
           </div>
         </div>
         <template>
@@ -36,85 +24,31 @@
             <el-table-column prop="role_name" label="角色"></el-table-column>
             <el-table-column label="状态">
               <template slot-scope="scope">
-                <el-switch
-                  v-model="scope.row.mg_state"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949"
-                  @change="sp(scope.row)"
-                >
+                <el-switch v-model="scope.row.mg_state" active-color="#13ce66" inactive-color="#ff4949" @change="sp(scope.row)">
                 </el-switch>
               </template>
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-tooltip
-                class="item"
-                effect="dark"
-                content="修改"
-                placement="top-start"
-                :enterable='false'
-              >
-                <el-button
-                  type="primary"
-                  icon="el-icon-edit"
-                  size="mini"
-                   @click="xg(scope.row)"
-                ></el-button>
+                    <el-tooltip class="item" effect="dark" content="修改" placement="top-start" :enterable='false'>
+                <el-button type="primary" icon="el-icon-edit" size="mini" @click="xg(scope.row)"></el-button>
               </el-tooltip>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                content="删除"
-                placement="top-start"
-                :enterable='false'
-              >
-                <el-button
-                  type="primary"
-                  icon="el-icon-delete"
-                  size="mini"
-                  @click="del(scope.row)"
-                ></el-button>
+              <el-tooltip class="item" effect="dark" content="删除" placement="top-start" :enterable='false'>
+                <el-button type="primary" icon="el-icon-delete" size="mini" @click="del(scope.row)"></el-button>
               </el-tooltip>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                content="分配权限"
-                placement="top-start"
-                :enterable='false'
-              >
-                <el-button
-                  type="warning"
-                  icon="el-icon-star-off"
-                  size="mini"
-                  @click="qx(scope.row)"
-                ></el-button>
+              <el-tooltip class="item" effect="dark" content="分配权限" placement="top-start" :enterable='false'>
+                <el-button type="warning" icon="el-icon-star-off" size="mini" @click="qx(scope.row)"></el-button>
               </el-tooltip>
                 </template>
             </el-table-column>
           </el-table>
         </template>
         <div class="block">
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page="currentPage4"
-            :page-sizes="[3, 4, 5, 6]"
-            :page-size="100"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="zsj"
-          >
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[3, 4, 5, 6]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="zsj">
           </el-pagination>
-          <el-dialog
-                title="分配权限"
-                :visible.sync="dialogVisible1"
-                width="30%"
-                :before-close="handleClose">
+          <el-dialog title="分配权限" :visible.sync="dialogVisible1" width="30%" :before-close="handleClose">
                <el-select v-model="value2" placeholder="分配角色">
-                    <el-option
-                    v-for="item in options"
-                    :key="item.id"
-                    :label="item.roleName"
-                    :value="item.id">
+                    <el-option v-for="item in options" :key="item.id" :label="item.roleName" :value="item.id">
                     </el-option>
               </el-select>
                 <span slot="footer" class="dialog-footer">
@@ -122,12 +56,7 @@
                     <el-button type="primary" @click="qr1">确 定</el-button>
                 </span>
             </el-dialog>
-          <el-dialog
-            :title="title"
-            :visible.sync="dialogVisible"
-            width="30%"
-            :before-close="handleClose"
-          >
+          <el-dialog :title="title" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" >
             <el-form label-width="100px" class="demo-ruleForm">
               <el-form-item v-if='flg' label="用户名称">
                 <el-input v-model="tj.username" type="text"></el-input>
@@ -140,14 +69,11 @@
               </el-form-item>
               <el-form-item label="手机号" prop="checkPass">
                 <el-input v-model="tj.mobile" type="text"></el-input>
-              </el-form-item>
-              
+              </el-form-item>  
             </el-form>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取 消</el-button>
-              <el-button type="primary" @click="qr"
-                >确 定</el-button
-              >
+              <el-button type="primary" @click="qr">确 定</el-button>
             </span>
           </el-dialog>
         </div>
@@ -221,12 +147,12 @@ export default {
                 console.log(res);
                 this.sa(this.my, this.mt)
             })
-          this.$message({
+          this.$sa({
             type: 'success',
             message: '删除成功!'
           });
         }).catch(() => {
-          this.$message({
+          this.$sa({
             type: 'info',
             message: '已取消删除'
           });          

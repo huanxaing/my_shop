@@ -42,6 +42,7 @@ export default {
         this.$sa.success("登陆成功")
         // token 只在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
         window.sessionStorage.setItem('token',res.data.token)
+         window.sessionStorage.removeItem('val')
         // 通过编程导航跳转到后台主页，路由地址是 /home
         this.$router.push('/home')
       },
