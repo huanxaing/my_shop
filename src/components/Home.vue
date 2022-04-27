@@ -22,7 +22,7 @@
               :collapse='flg'
               router
             >
-              <el-submenu :key="index" :index="item.id" v-for="(item,index) in arr">
+              <el-submenu :key="index" :index="index+''" v-for="(item,index) in arr">
                 <template slot="title">
                   <i :class="arr1[index]"></i>
                   <span>{{item.authName}}</span>
@@ -71,8 +71,8 @@ export default {
       },
       async sa(){
           const {data:res}=await this.$http.get('menus')
-        console.log(res.data);
-        this.arr = res.data
+          console.log(res.data);
+          this.arr = res.data
       },
       sk(val){     
          window.sessionStorage.setItem('val',val)
@@ -126,8 +126,8 @@ export default {
 .el-main {
   background-color: #e9eef3;
   color: #333;
-  text-align: center;
-  line-height: 40px;
+  // text-align: center;
+  
   padding: 0;
 }
 .el-container {

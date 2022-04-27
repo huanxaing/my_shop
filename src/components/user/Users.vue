@@ -124,7 +124,7 @@ export default {
         this.$http.get('roles').then(res=>{
             console.log(res);
             this.options=res.data.data
-            this.dialogVisible1=true
+            this.dialogVisible1=true 
         })
     },
     qr1(){
@@ -145,7 +145,12 @@ export default {
         }).then(() => {
             this.$http.delete('users/'+row.id).then(res=>{
                 console.log(res);
-                this.sa(this.my, this.mt)
+                if((this.my*this.mt-this.mt)==this.zsj-1 ){
+                  this.sa(this.my-1, this.mt)
+                  console.log(123);
+                }else{
+                    this.sa(this.my, this.mt)
+                }
             })
           this.$sa({
             type: 'success',

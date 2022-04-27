@@ -25,7 +25,7 @@
                 >
                   <el-col :span="8">
                     <div class="grid-content bg-purple">
-                      <el-tag closable type="success">{{
+                      <el-tag closable  @close="del(scope.row,item1.id)" type="success">{{
                         item1.authName
                       }}</el-tag>
                     </div>
