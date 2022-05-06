@@ -43,7 +43,7 @@
             </span>
           </el-dialog>
           <el-tab-pane label="配置管理" name="only">
-            <el-button type="primary" :disabled="flg" @click="jttj">添加角色</el-button>
+            <el-button type="primary" :disabled="flg" @click="jttj">添加参数</el-button>
             <el-table border :data="tableData" style="width: 100%; margin-top: 15px">
               <el-table-column type="expand">
                 <template slot-scope="scope">
@@ -101,9 +101,15 @@ export default {
     so() {
       window.sessionStorage.removeItem('val')
     },
+    zc_cw(res,val,num,num1){
+        if (res !== val) return this.$sa.error(num)
+        this.$sa.success(num1)
+    },
     async handleChange(value) {
-      console.log(value)
-      this.flg = false
+      console.log(value.length)
+     if(value.length ==3){
+          this.flg = false
+     }
       this.id = value
       const { data: res } = await this.$http.get('categories/' + this.id[2] + '/attributes',
         { params: { sel: this.activeName } }
@@ -131,6 +137,7 @@ export default {
     del(row){
         console.log(row);
         this.$http.delete('categories/'+this.id[2]+'/attributes/'+row.attr_id).then(res=>{
+            this.zc_cw(res.data.meta.status,res.data.meta.status,'删除失败','删除成功')
             this.handleChange(this.id)
         })
     },
@@ -148,6 +155,7 @@ export default {
           attr_name:this.input,
           attr_sel:this.activeName
         }).then((res) => {
+        this.zc_cw(res.data.meta.status,res.data.meta.status,'添加失败','添加成功')
          this.handleChange(this.id)
         })
      }else{
@@ -155,6 +163,7 @@ export default {
             attr_name:this.input,
             attr_sel:this.activeName
         }).then(res=>{
+           this.zc_cw(res.data.meta.status,res.data.meta.status,'修改失败','修改成功')
             this.handleChange(this.id)
         })
      }
@@ -165,9 +174,11 @@ export default {
       })
     },
     handleClick(tab, event) {
+      
       console.log(tab._uid)
       tab._uid == 30 ? (this.activeName = 'many') : (this.activeName = 'only')
       this.handleChange(this.id)
+   
     },
     handleClose(i,row) {
       row.attr_vals.splice(i, 1)
@@ -195,6 +206,7 @@ export default {
             attr_sel:this.activeName,
             attr_vals:row.attr_vals.join(' ')
         }).then(res=>{
+            this.zc_cw(res.data.meta.status,res.data.meta.status,'更新失败','更新成功')
             this.handleChange(this.id)
         })
     }

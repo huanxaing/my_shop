@@ -9,6 +9,9 @@ import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 Vue.use(VueQuillEditor)
+import ZkTable from 'vue-table-with-tree-grid'
+
+Vue.use(ZkTable)
     // 导入字体图标
 import './assets/font/iconfont.css'
 // 导入全局样式表

@@ -10,6 +10,7 @@ import GoodsList from '../components/GoodsManagement/GoodsList.vue'
 import Add from '../components/GoodsManagement/Add.vue'
 import UpdateGoods from '../components/GoodsManagement/UpdateGoods.vue'
 import Params from '../components/GoodsManagement/Params.vue'
+import GoodsClassify from '../components/GoodsManagement/GoodsClassify.vue'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,7 @@ const routes = [{
         { path: '/rights', component: Rights },
         { path: '/goods', component: GoodsList },
         { path: '/params', component: Params },
+        { path: '/categories', component: GoodsClassify },
         { path: '/add', component: Add },
         { path: '/update/:id', component: UpdateGoods }
 
