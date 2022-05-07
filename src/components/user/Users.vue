@@ -122,7 +122,6 @@ export default {
     qx(row){
         this.id1=row.id
         this.$http.get('roles').then(res=>{
-            console.log(res);
             this.options=res.data.data
             this.dialogVisible1=true 
         })
@@ -144,10 +143,8 @@ export default {
           type: 'warning'
         }).then(() => {
             this.$http.delete('users/'+row.id).then(res=>{
-                console.log(res);
                 if((this.my*this.mt-this.mt)==this.zsj-1 ){
                   this.sa(this.my-1, this.mt)
-                  console.log(123);
                 }else{
                     this.sa(this.my, this.mt)
                 }
@@ -165,7 +162,6 @@ export default {
 
     },
     xg(row){
-        console.log(row);
         this.flg=false
         this.dialogVisible=true
         this.tj.email=row.email
@@ -174,15 +170,11 @@ export default {
          this.title = '修改用户'
     },
     sp(row) {
-      this.$http
-        .put('users/' + row.id + '/state/' + row.mg_state)
-        .then((res) => {
-          console.log(res)
-        })
+      this.$http.put('users/' + row.id + '/state/' + row.mg_state).then((res) => {})
     },
     qr(){
         if(this.flg){
-            this.$http.post('users',this.tj).then(res=>{
+            this.$http.post('users',this.tj).then(res=>{            
                 this.sa(this.my, this.mt)
                 if(res.data.meta.status !==201) return this.$sa.error("添加失败")
                 this.$sa.success("添加成功")
@@ -205,7 +197,6 @@ export default {
           pagesize: my,
         },
       })
-      console.log(res)
       this.tableData = res.data.users
       this.zsj = res.data.total
     },
@@ -220,12 +211,10 @@ export default {
     handleSizeChange(val) {
       this.mt = val
       this.sa(this.my, this.mt)
-      console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
       this.my = val
       this.sa(this.my, this.mt)
-      console.log(`当前页: ${val}`)
     },
     handleClose() {
       this.dialogVisible = false    

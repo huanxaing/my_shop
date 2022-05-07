@@ -10,18 +10,7 @@
         <el-aside :width="flg ==true?50+'px':200+'px'">
             <div class="sf" @click="flg = !flg">|||</div>
           <el-col>
-            <el-menu
-              :default-active="vall"
-              class="el-menu-vertical-demo"
-              @open="handleOpen"
-              @close="handleClose"
-              background-color="#545c64"
-              text-color="#fff"
-              active-text-color="#ffd04b"
-              unique-opened
-              :collapse='flg'
-              router
-            >
+            <el-menu :default-active="vall" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened :collapse='flg' router>
               <el-submenu :key="index" :index="index+''" v-for="(item,index) in arr">
                 <template slot="title">
                   <i :class="arr1[index]"></i>
@@ -63,15 +52,10 @@ export default {
       // 跳转到登录界面
       this.$router.push('/login')
     },
-     handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      },
+    handleOpen(key, keyPath) {},
+    handleClose(key, keyPath) {},
       async sa(){
           const {data:res}=await this.$http.get('menus')
-          console.log(res.data);
           this.arr = res.data
       },
       sk(val){     

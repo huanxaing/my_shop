@@ -32,11 +32,9 @@ export default {
     },
     sa(){
         this.$http.get('reports/type/1').then(res=>{
-            console.log(res);
             this.arr1 = res.data.data.series.map(val=>{
                 return val.name
             })
-            console.log(this.arr1);
             this.arr=res.data.data.xAxis[0].data
             var myChart = echarts.init(document.querySelector('.box'))
         var option = {

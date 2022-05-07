@@ -1,19 +1,12 @@
 <template>
   <div class="wrapper">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }"
-        ><span @click="so">首页</span></el-breadcrumb-item
-      >
+      <el-breadcrumb-item :to="{ path: '/home' }"><span @click="so">首页</span></el-breadcrumb-item>
       <el-breadcrumb-item>角色管理</el-breadcrumb-item>
       <el-breadcrumb-item>角色列表</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="sg">
-      <el-input
-        v-model="cxjg"
-        placeholder="根据角色ID查询"
-        type="text"
-        style="width: 200px; margin-right: 10px"
-      ></el-input>
+      <el-input v-model="cxjg" placeholder="根据角色ID查询" type="text" style="width: 200px; margin-right: 10px"></el-input>
       <el-button type="primary" @click="cx()">查询角色</el-button>
       <el-button type="primary" @click="tj()">添加角色</el-button>
     </div>
@@ -24,58 +17,20 @@
         <el-table-column prop="roleDesc" label="角色描述"> </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="修改"
-              placement="top-start"
-              :enterable="false"
-            >
-              <el-button
-                type="primary"
-                icon="el-icon-edit"
-                size="mini"
-                @click="xg(scope.row)"
-              ></el-button>
+            <el-tooltip class="item" effect="dark" content="修改" placement="top-start" :enterable="false">
+              <el-button type="primary" icon="el-icon-edit" size="mini" @click="xg(scope.row)"></el-button>
             </el-tooltip>
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="删除"
-              placement="top-start"
-              :enterable="false"
-            >
-              <el-button
-                type="primary"
-                icon="el-icon-delete"
-                size="mini"
-                @click="del(scope.row)"
-              ></el-button>
+            <el-tooltip class="item" effect="dark" content="删除" placement="top-start" :enterable="false">
+              <el-button type="primary" icon="el-icon-delete" size="mini" @click="del(scope.row)"></el-button>
             </el-tooltip>
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="分配权限"
-              placement="top-start"
-              :enterable="false"
-            >
-              <el-button
-                type="warning"
-                icon="el-icon-star-off"
-                size="mini"
-                @click="qx()"
-              ></el-button>
+            <el-tooltip class="item" effect="dark" content="分配权限" placement="top-start" :enterable="false">
+              <el-button type="warning" icon="el-icon-star-off" size="mini" @click="qx()"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
     </template>
-    <el-dialog
-      :title="title"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose"
-    >
+    <el-dialog :title="title" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
       <el-form label-width="100px" class="demo-ruleForm">
         <el-form-item label="角色名称" prop="checkPass">
           <el-input v-model="tjj.roleName" type="text"></el-input>
@@ -121,7 +76,6 @@ export default {
         this.sa()
       }
       this.$http.get('roles/' + this.cxjg).then((res) => {
-        console.log(res.data.data)
         this.tableData = []
         this.tableData.push(res.data.data)      
       })
@@ -129,7 +83,6 @@ export default {
     qr() {
       if (this.flg) {
         this.$http.post('roles', this.tjj).then((res) => {
-          console.log(res)
           if (res.data.meta.status !== 201) return this.$sa.error('添加失败')
           this.$sa.success('添加成功')
           this.sa()
@@ -137,7 +90,6 @@ export default {
         })
       } else {
         this.$http.put('roles/' + this.ids, this.tjj).then((res) => {
-          console.log(res)
           if (res.data.meta.status !== 200) return this.$sa.error('修改失败')
           this.$sa.success('修改成功')
           this.sa()
@@ -147,7 +99,6 @@ export default {
     },
     sa() {
       this.$http.get('roles').then((res) => {
-        console.log(res.data.data)
         this.tableData = res.data.data
       })
     },
@@ -167,7 +118,6 @@ export default {
       })
         .then(() => {
           this.$http.delete('roles/' + row.id).then((res) => {
-            console.log(res)
             this.sa()
           })
           this.$sa({

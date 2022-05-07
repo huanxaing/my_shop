@@ -50,9 +50,6 @@
                     <el-button type="primary" @click="qr">确 定</el-button>
                 </span>
             </el-dialog>
-          
-
-
         </el-card>
   </div>
 </template>
@@ -96,9 +93,7 @@ export default {
         this.$sa.warning('......正在维护中')
         
     },
-    changeProvince(val){
-        console.log(val);
-    },
+    changeProvince(val){},
     handleClose(){
         this.dialogVisible=false
     },
@@ -110,7 +105,6 @@ export default {
                 pagesize:mt
             }
         }).then(res=>{
-            console.log(res);
             this.tableData=res.data.data.goods
             this.zsj=res.data.data.total
         })
@@ -118,12 +112,10 @@ export default {
      handleSizeChange(val) {
         this.mt=val
         this.sa(this.my,this.mt)
-        console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         this.my=val
         this.sa(this.my,this.mt)
-        console.log(`当前页: ${val}`);
       }
   },
   created() {

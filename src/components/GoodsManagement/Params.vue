@@ -106,7 +106,6 @@ export default {
         this.$sa.success(num1)
     },
     async handleChange(value) {
-      console.log(value.length)
      if(value.length ==3){
           this.flg = false
      }
@@ -135,7 +134,6 @@ export default {
       this.input=''
     },
     del(row){
-        console.log(row);
         this.$http.delete('categories/'+this.id[2]+'/attributes/'+row.attr_id).then(res=>{
             this.zc_cw(res.data.meta.status,res.data.meta.status,'删除失败','删除成功')
             this.handleChange(this.id)
@@ -174,8 +172,6 @@ export default {
       })
     },
     handleClick(tab, event) {
-      
-      console.log(tab._uid)
       tab._uid == 30 ? (this.activeName = 'many') : (this.activeName = 'only')
       this.handleChange(this.id)
    
@@ -194,7 +190,6 @@ export default {
     },
 
     handleInputConfirm(row) {
-        console.log(row);
         row.attr_vals.push(row.inputValue);
         row.inputValue=''
         row.inputVisible = false

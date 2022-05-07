@@ -1,40 +1,23 @@
 <template>
   <div class="wrapper">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }"
-        ><span @click="so">首页</span></el-breadcrumb-item
-      >
+      <el-breadcrumb-item :to="{ path: '/home' }"><span @click="so">首页</span></el-breadcrumb-item>
       <el-breadcrumb-item>商品管理</el-breadcrumb-item>
       <el-breadcrumb-item>商品列表</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card">
       <div>
         <div style="width: 300px; position: relative">
-          <el-input
-            placeholder="请输入内容"
-            v-model="input3"
-            class="input-with-select"
-          >
-            <el-button
-              slot="append"
-              icon="el-icon-search"
-              @click="sa(mt, my)"
-            ></el-button>
+          <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
+            <el-button slot="append" icon="el-icon-search" @click="sa(mt, my)"></el-button>
           </el-input>
           <div class="sl">
-            <el-button type="primary" size="medium" @click="tjyh"
-              >添加商品</el-button
-            >
+            <el-button type="primary" size="medium" @click="tjyh">添加商品</el-button>
           </div>
         </div>
       </div>
       <template>
-        <el-table
-          border
-          :data="tableData"
-          stripe
-          style="width: 100%; margin-top: 10px"
-        >
+        <el-table border :data="tableData" stripe style="width: 100%; margin-top: 10px">
           <el-table-column type="index" label="#"> </el-table-column>
           <el-table-column prop="goods_name" label="商品名称" width="650">
           </el-table-column>
@@ -45,32 +28,14 @@
           <el-table-column prop="add_time" label="创建时刻"> </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button
-                type="primary"
-                @click="tz(scope.row)"
-                icon="el-icon-edit"
-                circle
-              ></el-button>
-              <el-button
-                type="danger"
-                icon="el-icon-delete"
-                @click="del(scope.row)"
-                circle
-              ></el-button>
+              <el-button type="primary" @click="tz(scope.row)" icon="el-icon-edit" circle></el-button>
+              <el-button type="danger" icon="el-icon-delete" @click="del(scope.row)" circle></el-button>
             </template>
           </el-table-column>
         </el-table>
       </template>
       <div class="block">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[5, 10, 15, 20, 25, , 30]"
-          :page-size="100"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="zsj"
-        >
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[5, 10, 15, 20, 25, , 30]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="zsj">
         </el-pagination>
       </div>
     </el-card>
@@ -134,7 +99,6 @@ export default {
       })
         .then(() => {
           this.$http.delete('goods/' + row.goods_id).then((res) => {
-            console.log(res)
             this.sa(this.mt, this.my)
           })
           this.$sa({
@@ -152,12 +116,10 @@ export default {
     handleSizeChange(val) {
       this.mt = val
       this.sa(this.mt, this.my)
-      console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
       this.my = val
       this.sa(this.mt, this.my)
-      console.log(`当前页: ${val}`)
     },
     sa(mt, my) {
       this.$http
@@ -169,10 +131,8 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res)
           this.zsj = res.data.data.total
           var temp = res.data.data.goods
-          console.log(temp)
           this.tableData = temp
           // 将时间戳转换为日期格式
           for (var i = 0; i < temp.length; i++) {
