@@ -77,6 +77,7 @@ export default {
     return {
       value: [],
       options: [],
+      arr:[],
       props: {
         expandTrigger: 'hover',
         value: 'cat_id',
@@ -114,7 +115,7 @@ export default {
         { params: { sel: this.activeName } }
       )
       res.data.forEach((item) => {
-        item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
+        item.attr_vals = item.attr_vals ? item.attr_vals.split(',') : []
         item.inputVisible = false
         item.inputValue = ''
       })
@@ -140,6 +141,8 @@ export default {
         })
     },
     xg(row){
+        this.arr = row.attr_vals
+        console.log(this.arr);
         this.idd=row.attr_id
         this.dialogVisible = true
         this.activeName == 'many'?this.title='动态添加':this.title='静态添加'
@@ -159,7 +162,8 @@ export default {
      }else{
          this.$http.put('categories/'+this.id[2]+'/attributes/'+this.idd,{
             attr_name:this.input,
-            attr_sel:this.activeName
+            attr_sel:this.activeName,
+            attr_vals:this.arr.join(',')
         }).then(res=>{
            this.zc_cw(res.data.meta.status,res.data.meta.status,'修改失败','修改成功')
             this.handleChange(this.id)
@@ -171,10 +175,8 @@ export default {
         this.options = res.data.data
       })
     },
-    handleClick(tab, event) {
-      tab._uid == 30 ? (this.activeName = 'many') : (this.activeName = 'only')
+    handleClick() {
       this.handleChange(this.id)
-   
     },
     handleClose(i,row) {
       row.attr_vals.splice(i, 1)
@@ -182,8 +184,7 @@ export default {
     },
 
     showInput(row) {
-       row.inputVisible = true;
-     
+       row.inputVisible = true; 
       this.$nextTick(_ => {
         this.$refs.saveTagInput.$refs.input.focus();
       });
